@@ -1,51 +1,23 @@
-# This file contains default .gitignore rules. To use it, copy it to .gitignore,
-# and it will cause files like your settings.php and user-uploaded files to be
-# excluded from Git version control. This is a common strategy to avoid
-# accidentally including private information in public repositories and patch
-# files.
-#
-# Because .gitignore can be specific to your site, this file has a different
-# name; updating Drupal core will not override your custom .gitignore file.
+# See https://help.github.com/ignore-files/ for more about ignoring files.
 
-# Ignore core when managing all of a project's dependencies with Composer
-# including Drupal core.
-# core
+# dependencies
+/node_modules
 
-# Ignore dependencies that are managed with Composer.
-# Generally you should only ignore the root vendor directory. It's important
-# that core/assets/vendor and any other vendor directories within contrib or
-# custom module, theme, etc., are not ignored unless you purposely do so.
-/vendor/
-/web/**/node_modules/
+# testing
+/coverage
 
-# Ignore configuration files that may contain sensitive information.
-#/web/sites/*/settings*.php
-web/sites/*/services*.yml
-web/sites/*/settings.local.php
-web/sites/development.services.yml
+# production
+/build
 
+/config
 
-# Ignore paths that contain user-generated content.
-/web/sites/*/files
-/web/sites/*/private
+# misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
 
-# Ignore SimpleTest multi-site environment.
-/web/sites/simpletest
-
-# If you prefer to store your .gitignore file in the sites/ folder, comment
-# or delete the previous settings and uncomment the following ones, instead.
-
-# Ignore configuration files that may contain sensitive information.
-*/settings*.php
-
-# Ignore paths that contain user-generated content.
-# */files
-# */private
-
-# Ignore SimpleTest multi-site environment.
-# simpletest
-
-# Ignore .sass-cache folder
-/html/assets/.sass-cache
-/web/themes/**/.sass-cache
-
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
