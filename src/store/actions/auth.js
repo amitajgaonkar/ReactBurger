@@ -47,13 +47,18 @@ const getUserAccessTokens = (data, dispatch) => {
       console.log("access token response", response);
 
       if (response && response.status === 200) {
+        let now = new Date();
+        now.setSeconds(now.getSeconds() + response.data.expires_in);
+
         localStorage.setItem("access_token", response.data.access_token);
         localStorage.setItem("refresh_token", response.data.refresh_token);
+        localStorage.setItem("exp_time", now);
 
         dispatch({
           type: actionTypes.LOGIN_SUCCESS,
           access_token: response.data.access_token,
           refresh_token: response.data.refresh_token,
+          exp_time: now,
         });
       } else {
         dispatch(logoutUser());
@@ -67,9 +72,13 @@ const getUserAccessTokens = (data, dispatch) => {
 
 export const checkAuthentication = () => {
   return (dispatch) => {
+    let now = new Date();
     const access_token = localStorage.getItem("access_token");
     const refresh_token = localStorage.getItem("refresh_token");
-    if (access_token && refresh_token) {
+    let exp_time = localStorage.getItem("exp_time");
+    exp_time = new Date(exp_time);
+
+    if (access_token && refresh_token && exp_time && now < exp_time) {
       dispatch({
         type: actionTypes.LOGIN_SUCCESS,
         access_token: access_token,
